@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Anay's Birthday 🎂💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+margin:0;
+font-family:Arial,sans-serif;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#ffd6e8,#cdb4db);
+overflow:hidden;
+}
+
+/* Floating hearts */
+.heart{
+position:fixed;
+width:18px;
+height:18px;
+background:#ff4d6d;
+transform:rotate(45deg);
+animation:float 8s linear infinite;
+opacity:.6;
+}
+.heart::before,.heart::after{
+content:"";
+width:18px;
+height:18px;
+background:#ff4d6d;
+border-radius:50%;
+position:absolute;
+}
+.heart::before{top:-9px;left:0;}
+.heart::after{left:-9px;top:0;}
+
+@keyframes float{
+from{transform:translateY(110vh) rotate(45deg);}
+to{transform:translateY(-10vh) rotate(45deg);}
+}
+
+/* Container */
+#container{
+background:rgba(255,255,255,.95);
+padding:30px;
+border-radius:25px;
+text-align:center;
+box-shadow:0 15px 40px rgba(0,0,0,.25);
+max-width:90%;
+z-index:2;
+}
+
+h1{margin-bottom:20px}
+
+button{
+padding:12px 25px;
+margin:5px;
+border:none;
+border-radius:30px;
+font-size:1rem;
+background:#ff6f91;
+color:white;
+cursor:pointer;
+transition:.3s;
+}
+button:hover{transform:scale(1.1);}
+
+.section{
+display:none;
+margin-top:20px;
+font-size:1.5rem;
+color:#ff4d6d;
+}
+
+/* Teddy */
+.virtual-teddy{
+width:120px;
+margin-top:15px;
+border-radius:15px;
+}
+
+/* Gallery */
+.gallery img{
+width:80px;
+height:80px;
+margin:5px;
+border-radius:10px;
+transition:.3s;
+}
+.gallery img:hover{transform:scale(1.2);}
+
+/* Gift */
+.gift-box{
+width:160px;
+height:120px;
+margin:20px auto;
+position:relative;
+cursor:pointer;
+perspective:800px;
+}
+.box{
+width:160px;
+height:120px;
+background:linear-gradient(#d62828,#9b1c1c);
+border-radius:15px;
+box-shadow:0 20px 30px rgba(0,0,0,.3);
+}
+.lid{
+width:170px;
+height:50px;
+background:linear-gradient(#ffb703,#fb8500);
+position:absolute;
+top:-20px;
+left:-5px;
+border-radius:15px;
+transform-origin:bottom center;
+transition:1s;
+}
+.gift-box.open .lid{transform:rotateX(120deg);}
+
+/* Cake */
+.cake{
+display:none;
+margin-top:20px;
+position:relative;
+}
+.cake img{
+width:220px;
+display:block;
+margin:auto;
+}
+
+/* Candles */
+.candles{
+position:absolute;
+top:10px;
+left:50%;
+transform:translateX(-50%);
+display:flex;
+gap:10px;
+}
+.candle{
+width:6px;
+height:25px;
+background:yellow;
+position:relative;
+border-radius:3px;
+}
+.flame{
+width:6px;
+height:10px;
+background:orange;
+border-radius:50%;
+position:absolute;
+top:-10px;
+animation:flicker .4s infinite alternate;
+}
+
+@keyframes flicker{
+from{transform:scaleY(1);}
+to{transform:scaleY(1.5);}
+}
+
+/* Countdown */
+#countdown{
+font-size:2.5rem;
+margin-top:10px;
+color:#ff4d6d;
+display:none;
+}
+</style>
+</head>
+
+<body>
+
+<script>
+for(let i=0;i<25;i++){
+let h=document.createElement("div");
+h.className="heart";
+h.style.left=Math.random()*100+"vw";
+h.style.animationDuration=6+Math.random()*6+"s";
+document.body.appendChild(h);
+}
+</script>
+
+<div id="container">
+<h1>🎂 Happy Birthday Anay 💖</h1>
+
+<button onclick="show('s1')">Surprise 1 ✉️</button>
+<button onclick="show('s2')">Surprise 2 🖼️</button>
+<button onclick="show('s3')">Surprise 3 🎁</button>
+
+<!-- Surprise 1 -->
+<div id="s1" class="section">
+💌 Having you in my life makes every day brighter 💖<br>
+<img class="virtual-teddy" src="https://i.pinimg.com/564x/e8/0a/5d/e80a5dc27977bd0296d6c4636efa0265.jpg">
+</div>
+
+<!-- Surprise 2 -->
+<div id="s2" class="section gallery">
+<img src="https://media.giphy.com/media/l41YtZOb9EUABnuqA/giphy.gif">
+<img src="https://media.giphy.com/media/3o7aD2saalBwwftBIY/giphy.gif">
+<img src="https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif">
+</div>
+
+<!-- Surprise 3 -->
+<div id="s3" class="section">
+<h3>🎁 Open the Gift</h3>
+
+<div class="gift-box" id="gift">
+<div class="lid"></div>
+<div class="box"></div>
+</div>
+
+<div class="cake" id="cake">
+<img src="https://img.freepik.com/premium-vector/simple-cartoon-blue-birthday-cake-illustration_627079-6996.jpg">
+<div class="candles" id="candles"></div>
+</div>
+
+<div id="countdown">3</div>
+</div>
+</div>
+
+<script>
+function show(id){
+document.querySelectorAll(".section").forEach(s=>s.style.display="none");
+document.getElementById(id).style.display="block";
+}
+
+// Candles
+const candleWrap=document.getElementById("candles");
+for(let i=0;i<6;i++){
+let c=document.createElement("div");
+c.className="candle";
+let f=document.createElement("div");
+f.className="flame";
+c.appendChild(f);
+candleWrap.appendChild(c);
+}
+
+// Gift open
+document.getElementById("gift").onclick=()=>{
+document.getElementById("gift").classList.add("open");
+setTimeout(()=>{
+document.getElementById("cake").style.display="block";
+startCountdown();
+},1000);
+};
+
+// Countdown + mic
+function startCountdown(){
+let cd=document.getElementById("countdown");
+cd.style.display="block";
+let n=3;
+cd.textContent=n;
+
+let timer=setInterval(()=>{
+n--;
+cd.textContent=n;
+if(n===0){
+clearInterval(timer);
+cd.textContent="BLOW 💨";
+startMic();
+}
+},1000);
+}
+
+// Mic blow detection
+function startMic(){
+navigator.mediaDevices.getUserMedia({audio:true}).then(stream=>{
+const ctx=new AudioContext();
+const mic=ctx.createMediaStreamSource(stream);
+const analyser=ctx.createAnalyser();
+mic.connect(analyser);
+const data=new Uint8Array(analyser.fftSize);
+
+function detect(){
+analyser.getByteTimeDomainData(data);
+let volume=data.reduce((a,b)=>a+Math.abs(b-128),0)/data.length;
+if(volume>20){
+document.querySelectorAll(".flame").forEach(f=>f.style.display="none");
+document.getElementById("countdown").textContent="🎉";
+return;
+}
+requestAnimationFrame(detect);
+}
+detect();
+});
+}
+</script>
+
+</body>
+</html>
+
